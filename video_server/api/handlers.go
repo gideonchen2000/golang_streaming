@@ -12,7 +12,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func CreateUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	res, _ := ioutil.ReadAll(r.Body)
 	ubody := &defs.UserCredential{}
 
@@ -38,7 +38,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 }
 
-func Login(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func Login(w http.ResponseWriter, _ *http.Request, p httprouter.Params) {
 	uname := p.ByName("user_name")
 	io.WriteString(w, uname)
 }

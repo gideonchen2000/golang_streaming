@@ -1,6 +1,9 @@
 package main
 
 import (
+	"golang_streaming/video_server/streamserver/handlers"
+	"golang_streaming/video_server/streamserver/limiter"
+	"golang_streaming/video_server/streamserver/response"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -8,34 +11,35 @@ import (
 
 type middleWareHandler struct {
 	r *httprouter.Router
-	l *ConnLimiter
+	l *limiter.ConnLimiter
 }
 
 func NewMiddleWareHandler(r *httprouter.Router, cc int) http.Handler {
 	m := middleWareHandler{}
 	m.r = r
-	m.l = NewConnLimiter(cc)
+	m.l = limiter.NewConnLimiter(cc)
 	return m
 }
 
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if !m.l.GetConn() {
-		sendErrorResponse(w, http.StatusTooManyRequests, "Too many requests")
+		response.SendErrorResponse(w, http.StatusTooManyRequests, "Too many requests")
 		return
 	}
 
 	m.r.ServeHTTP(w, r)
+
 	defer m.l.ReleaseConn()
 }
 
 func RegisterHandlers() *httprouter.Router {
 	router := httprouter.New()
 
-	router.GET("/videos/:vid-id", streamHandler)
+	router.GET("/videos/:vid-id", handlers.StreamHandler)
 
-	router.POST("/upload/:vid-id", uploadHandler)
+	router.POST("/upload/:vid-id", handlers.UploadHandler)
 
-	router.GET("/testpage", testPageHandler)
+	router.GET("/testpage", handlers.TestPageHandler)
 
 	return router
 }
