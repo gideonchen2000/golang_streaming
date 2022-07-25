@@ -15,7 +15,7 @@ type middleWareHandler struct {
 }
 
 func NewMiddleWareHandler(r *httprouter.Router, cc int) http.Handler {
-	m := middleWareHandler{}
+	m := &middleWareHandler{}
 	m.r = r
 	m.l = limiter.NewConnLimiter(cc)
 	return m

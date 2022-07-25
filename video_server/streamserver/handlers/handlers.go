@@ -15,12 +15,10 @@ import (
 )
 
 func TestPageHandler(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
-	t, _ := template.ParseFiles("./upload.html")
+	t, _ := template.ParseFiles("./videos/upload.html")
 
-	err := t.Execute(w, nil)
-	if err != nil {
-		log.Println("executing template:", err)
-	}
+	t.Execute(w, nil)
+
 }
 
 func StreamHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -49,6 +47,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 
 	file, _, err := r.FormFile("file")
 	if err != nil {
+		log.Printf("Error when try to get file: %v", err)
 		response.SendErrorResponse(w, http.StatusInternalServerError, "Internal Error")
 		return
 	}
