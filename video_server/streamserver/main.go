@@ -39,6 +39,7 @@ func RegisterHandlers() *httprouter.Router {
 
 	return router
 }
+
 func main() {
 	r := RegisterHandlers()
 	mh := NewMiddleWareHandler(r, 100) // 流控值暂置为2便于测试

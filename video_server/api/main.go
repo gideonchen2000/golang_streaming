@@ -1,6 +1,7 @@
 package main
 
 import (
+	"golang_streaming/video_server/api/session"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -32,12 +33,12 @@ func RegisterHandlers() *httprouter.Router {
 	return router
 }
 
-// func Prepare() {
-// 	session.LoadSessionsFromDB()
-// }
+func Prepare() {
+	session.LoadSessionsFromDB()
+}
 
 func main() {
-	// Prepare()
+	Prepare()
 	r := RegisterHandlers()
 	mh := NewMiddleWareHandler(r)
 	http.ListenAndServe(":8000", mh)

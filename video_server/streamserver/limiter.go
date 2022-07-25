@@ -1,5 +1,4 @@
 // 流控部分 go channel先天的优势
-
 package main
 
 import "log"

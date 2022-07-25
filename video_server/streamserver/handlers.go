@@ -13,9 +13,18 @@ import (
 )
 
 func testPageHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	t, _ := template.ParseFiles("./videos/upload.html")
+	t, err := template.ParseFiles("D:/golang_streaming/video_server/streamserver/upload.html")
 
-	t.Execute(w, nil)
+	if err != nil {
+		log.Printf("error to template: %v", err)
+		return
+	}
+
+	err = t.Execute(w, nil)
+	if err != nil {
+		log.Printf("error to test page handler: %v", err)
+		return
+	}
 }
 
 func streamHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
