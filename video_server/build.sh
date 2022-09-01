@@ -1,7 +1,13 @@
 #! /bin/bash
 
 # Build web UI
-cd ~/golang_streaming/video_server/web
+cd /d/golang_streaming/video_server/web
 go install
-cp ~/golang/bin/web ~/golang/bin/video_server_web_ui/web
-cp -R ~/golang_streaming/video_server/templates ~/golang/bin/video_server_web_ui/web
+cd /d/golang_streaming/video_server/api
+go install
+cd /d/golang_streaming/video_server/scheduler
+go install
+cd /d/golang_streaming/video_server/streamserver
+go install
+cp /d/golang/bin/web /d/golang/bin/video_server_web_ui/web
+cp -R /d/golang_streaming/video_server/templates /d/golang/bin/video_server_web_ui/

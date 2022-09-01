@@ -28,7 +28,7 @@ func RegisterHandlers() *httprouter.Router {
 
 	router.POST("/user", CreateUser)
 
-	router.POST("/user/:user_name", Login)
+	router.POST("/user/:username", Login)
 
 	router.GET("/user/:username", GetUserInfo)
 
@@ -53,5 +53,5 @@ func main() {
 	Prepare()
 	r := RegisterHandlers()
 	mh := NewMiddleWareHandler(r)
-	http.ListenAndServe(":8000", mh)
+	http.ListenAndServe("127.0.0.1:8000", mh)
 }

@@ -26,7 +26,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	sid, err2 := r.Cookie("session")
 
 	if err != nil || err2 != nil {
-		p := &HomePage{Name: "Alan"}
+		p := &HomePage{Name: "Gideon"}
 		t, e := template.ParseFiles("./templates/home.html")
 		if e != nil {
 			log.Printf("Parsing template home.html error: %s", e)
